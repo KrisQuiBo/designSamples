@@ -1,0 +1,140 @@
+//layout variables
+$max-width: 1400px;
+$gutter: 5px;
+
+//fonts and typography
+$open-sans: 'Open Sans', sans-serif;
+$bold: 700;
+
+//media query variables
+$media-break: 769px;
+$mobile-width: 480px;
+$tablet: "(min-width: 768px) and (max-width: 1023px)";
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin center($w) {
+  width: $w;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+@mixin flex-it (
+  $disp: flex,
+  $dir: null,
+  $wrap: null,
+  $just: null,
+  $basis: null,
+  $flex: null) {
+    display: $disp ;
+    flex-direction: $dir;
+    flex-wrap: $wrap;
+    justify-content: $just;
+    flex-basis: $basis;
+    flex-grow: $flex;
+    // margin: 25px;
+    text-align: center;
+    @content;
+}
+//Media query for screens larger than 769px//
+@mixin media($size) {
+  @if $size == 'lg' {
+      @media (min-width: $media-break) {
+          @content;
+      }
+  }
+}
+@mixin tabletRange {
+  @media (min-width: #{$tablet-width}) and (min-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (min-width: $tablet-width) {
+    @content;
+  }
+}
+
+body,
+.grid__photo--inner {
+  background-color: whitesmoke;
+  @include center(90%);
+}
+h1 {
+  text-align: center;
+  font-family: $open-sans;
+}
+h1 span {
+  font-size: 1rem;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 1rem;
+  color: tomato;
+
+}
+form {
+  margin: 20px;
+  text-align: center;
+    input {
+      width: 50%;
+      outline: 0;
+      border: 2px solid ivory;
+      border-radius: 4px;
+      // text-align: right;
+      font-family: $open-sans;
+      font-size: 80%;
+      padding-left: 10px;
+        @include mobile {
+          width: 40%;
+
+        }
+  }
+  input:focus {
+    outline: 0;
+    border: 2px solid wheat;
+  }
+}
+main {
+  @include center(100%);
+}
+img {
+  max-width: 100%;
+}
+.grid__photo--inner {
+  @include flex-it($dir: column, $wrap: wrap);
+  align-items: center;
+  @include mobile {
+    @include center(90%);
+    padding: 0;
+    @include flex-it($dir: row, $wrap: wrap, $just: center);
+  }
+}
+
+.pic-item {
+  margin: 20px;
+  border: 2px solid aliceblue;
+  &:hover {
+    border: 2px solid tomato;
+    opacity: 0.6;
+  }
+  @include media('lg') {}
+}
+.lb-details .lb-caption {
+font-family: $open-sans;
+@include mobile {
+  font-size: 18px;
+  line-height: 2em;
+  // font-family: 'Roboto Slab';
+}
+}
+
+.lightbox, .lb-image, .lb-container {
+  width: 100%;
+  height: auto;
+}
